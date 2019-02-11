@@ -1,0 +1,112 @@
+service: coffee-shop-backend # NOTE: update this with your service name
+
+provider:
+  name: aws
+  region: eu-west-2
+  profile: njs
+
+  # env variables to each function
+  environment:
+    ORDER_TABLE:
+      Ref: OrdersTable
+    AWS_DEPLOY_REGION: "${self:provider.region}"
+
+  # shared iam for all functions (TODO - refactor)
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:*"
+      Resource:
+        - Fn::GetAtt: [OrdersTable, Arn]
+        - Fn::Join:
+            - '/'
+            - - Fn::GetAtt: [OrdersTable, Arn]
+              - '*'
+    - Effect: Allow
+      Action:
+        - "s3:Get*"
+      Resource: "arn:aws:s3:::covfefe-assets/static-json/menu.json"
+
+plugins:
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    domainName: api.njslogic.com
+    basePath: 'coffee'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
+functions:
+  menu:
+    handler: functions/menu.lambda_handler
+    runtime: python3.7
+    events:
+      - http: 
+          method: get
+          path: menu
+          cors: true
+
+  orders:
+    handler: functions/orders.lambda_handler
+    runtime: python3.7
+    events:
+      - http: 
+          method: get
+          path: orders
+          cors: true
+
+  order:
+    handler: functions/order.lambda_handler
+    runtime: python3.7
+    events:
+      - http: 
+          method: post
+          path: order
+          cors: true
+      - http: 
+          method: put
+          path: updateorder
+          cors: true
+
+  notify_shop:
+    handler: js/handler.broadcast
+    runtime: nodejs8.10
+    environment:
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt: [OrdersTable, StreamArn]
+
+  notify_user:
+    handler: js/handler.broadcast
+    runtime: nodejs8.10
+    environment:
+      CONNECTIONS_TABLE: shop-websockets-dev-ConnectionsTable-15I96ZA0745K0
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt: [OrdersTable, StreamArn]
+  
+# traditional resources
+resources:
+  Resources:
+    OrdersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: coffee-orders
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: orderId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: orderId
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_IMAGE

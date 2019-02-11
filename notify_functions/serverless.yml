@@ -1,0 +1,50 @@
+
+
+service: notification-functions
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-2
+  profile: njs
+  environment:
+    API_REGION: "${self:provider.region}"  
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "execute-api:ManageConnections"
+      Resource:
+        - "arn:aws:execute-api:*:*:**/@connections/*"
+    - Effect: Allow
+      Action:
+        - "dynamodb:*"
+      Resource: '*'
+
+functions:
+  user_connection_manager:
+    handler: handler.connectionManager
+    events:
+      - websocket:
+          routeKey: $connect
+      - websocket:
+          routeKey: $disconnect
+  
+  notify_shop:
+    handler: handler.sendMessage
+    runtime: nodejs8.10
+    environment:
+      CONNECTIONS_TABLE: shop-websockets-dev-ConnectionsTable-15I96ZA0745K0
+    events:
+      - stream:
+          type: dynamodb
+          arn: arn:aws:dynamodb:eu-west-2:REPLACE:table/coffee-orders/stream/2019-02-08T10:14:33.841
+
+  notify_user:
+    handler: handler.sendMessage
+    runtime: nodejs8.10
+    environment:
+      CONNECTIONS_TABLE: user-websockets-dev-ConnectionsTable-1D0E5X6Y1H5ML
+    events:
+      - stream:
+          type: dynamodb
+          arn: arn:aws:dynamodb:eu-west-2:REPLACE:table/coffee-orders/stream/2019-02-08T10:14:33.841

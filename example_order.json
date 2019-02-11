@@ -1,0 +1,120 @@
+{
+    "resource": "/order",
+    "path": "/coffee/order",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "cache-control": "no-cache",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "GB",
+        "Content-Type": "application/json",
+        "Host": "api.njslogic.com",
+        "Postman-Token": "4952cd9d-f431-4d26-8937-323c1ecaf729",
+        "User-Agent": "PostmanRuntime/7.1.1",
+        "Via": "1.1 ccab09d2fc676f6266ca470208d80fd2.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "tTuzW04z2t5_HjpfMiu__IHFXVSGmHhADHGEQKOPF-SKL8aORMtOzA==",
+        "X-Amzn-Trace-Id": "Root=1-5c5d6e2d-2db002659656f19b1bd428c3",
+        "X-Forwarded-For": "46.233.117.73, 54.240.157.80",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "*/*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate"
+        ],
+        "cache-control": [
+            "no-cache"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "GB"
+        ],
+        "Content-Type": [
+            "application/json"
+        ],
+        "Host": [
+            "api.njslogic.com"
+        ],
+        "Postman-Token": [
+            "4952cd9d-f431-4d26-8937-323c1ecaf729"
+        ],
+        "User-Agent": [
+            "PostmanRuntime/7.1.1"
+        ],
+        "Via": [
+            "1.1 ccab09d2fc676f6266ca470208d80fd2.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "tTuzW04z2t5_HjpfMiu__IHFXVSGmHhADHGEQKOPF-SKL8aORMtOzA=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5c5d6e2d-2db002659656f19b1bd428c3"
+        ],
+        "X-Forwarded-For": [
+            "46.233.117.73, 54.240.157.80"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "1y4jnk",
+        "resourcePath": "/order",
+        "httpMethod": "POST",
+        "extendedRequestId": "Ux4nLG-MrPEFeIQ=",
+        "requestTime": "08/Feb/2019:11:55:25 +0000",
+        "path": "/coffee/order",
+        "accountId": "758067727639",
+        "protocol": "HTTP/1.1",
+        "stage": "dev",
+        "domainPrefix": "api",
+        "requestTimeEpoch": 1549626925910,
+        "requestId": "6c098fa6-2b98-11e9-a0be-0f4726b7ea89",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "46.233.117.73",
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "PostmanRuntime/7.1.1",
+            "user": null
+        },
+        "domainName": "api.njslogic.com",
+        "apiId": "v9s4kt1bb2"
+    },
+    "body": "{\n  \"items\": [\n    {\n      \"additions\": {\n        \"Ginger Bread\": 0.5,\n        \"Soya Milk\": 0.2\n      },\n      \"name\": \"Caffe Latte\",\n      \"variant\": \"Large\",\n      \"variant_price\": 1.7\n    },\n    {\n      \"additions\": {},\n      \"name\": \"Specialty Tea\",\n      \"variant\": \"Blood Tea\",\n      \"variant_price\": 0.9\n    },\n    {\n      \"additions\": {\n        \"Almond Milk\": 0\n      },\n      \"name\": \"Flat White\",\n      \"variant\": \"Regular\",\n      \"variant_price\": 1.6\n    }\n  ],\n  \"userId\": \"neil@njslogic.com\"\n}",
+    "isBase64Encoded": false
+}
